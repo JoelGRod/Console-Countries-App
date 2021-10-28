@@ -1,0 +1,29 @@
+{
+  "name": "countries-app-console",
+  "version": "1.0.0",
+  "description": "App for fetch countries, weather and geolocation",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./dist/app.js"
+  },
+  "keywords": [
+    "console",
+    "node",
+    "countries",
+    "weather",
+    "geolocation"
+  ],
+  "author": "Joel Glez Rod",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "colors": "^1.4.0",
+    "dotenv": "^10.0.0",
+    "inquirer": "^8.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.6",
+    "typescript": "^4.4.4"
+  }
+}
