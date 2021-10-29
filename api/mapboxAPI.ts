@@ -1,3 +1,5 @@
+import { MapboxResponse } from "../interfaces/MapboxResponse";
+
 const axios = require('axios');
 
 const mapboxAPI = axios.create({
@@ -9,4 +11,12 @@ const mapboxAPI = axios.create({
     }
 });
 
-export default mapboxAPI;
+export const getRequest = async ( searchTerm: string ): Promise<MapboxResponse> => {
+    try {
+        const resp = await mapboxAPI.get(`${ searchTerm }.json`);
+        return resp.data;
+    } catch (error) {
+        throw new Error("Bad request");
+    }
+}
+
