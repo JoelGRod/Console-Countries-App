@@ -10,7 +10,13 @@ class Searchs {
     private _history: string[] = [];
 
     public get history() {
-        return [ ...this._history ];
+        const capitalizedHistory = this._history.map( term => {
+            const termList = term.split(' ').map( 
+                word => word[0].toLocaleUpperCase() + word.slice(1)
+            );
+            return termList.join(' ');
+        });
+        return capitalizedHistory;
     }
 
     public constructor( db: DataBase ) {
