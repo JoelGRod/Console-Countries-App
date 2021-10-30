@@ -3,12 +3,25 @@ import * as mapboxAPI from '../api/mapboxAPI';
 import * as weatherAPI from '../api/openWeatherAPI';
 // Interfaces
 import { City } from '../interfaces/City';
+import DataBase from './DataBase';
 
 class Searchs {
 
-    public history: string[] = [];
+    private _history: string[] = [];
 
-    public constructor() {}
+    public get history() {
+        return [ ...this._history ];
+    }
+
+    public constructor( db: DataBase ) {
+        this._history = db.readDatabase();
+    }
+
+    public addHistory( place: string ) {
+        if( this.history.includes(place.toLocaleLowerCase()) ) return;
+        this._history = this._history.splice(0, 5);
+        this._history.unshift(place.toLocaleLowerCase());
+    }
 
     public async city( searchTerm: string ): Promise<City[]> {
         try {
@@ -26,7 +39,7 @@ class Searchs {
         }
     }
 
-    public async weather( lat: number = 0, lon: number = 0 ) {
+    public async weather( lat: number, lon: number ) {
         try {
             const resp = await weatherAPI.getRequest({ lat, lon });
             return {
