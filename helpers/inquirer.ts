@@ -74,32 +74,32 @@ export const confirmation = async (message: string) => {
   return ok;
 };
 
-// export const deleteTasks = async (taskList: Task[]) => {
-//   const choices = taskList.map((task, idx) => {
-//     const id = `${idx + 1}.`.green;
-//     return {
-//       name: `${id} ${task.desc}`,
-//       value: task.id,
-//     };
-//   });
+export const selectOption = async (optionsList: any[], message: string) => {
+  const choices = optionsList.map((option, idx) => {
+    const id = `${idx + 1}.`.green;
+    return {
+      name: `${id} ${option.name}`,
+      value: option.id,
+    };
+  });
 
-//   choices.unshift({
-//     name: "0. ".green + "Cancel",
-//     value: "0",
-//   });
+  choices.unshift({
+    name: "0. ".green + "Cancel",
+    value: "0",
+  });
 
-//   const questions = [
-//     {
-//       type: "list",
-//       name: "id",
-//       message: "What task do you want to delete?",
-//       choices,
-//     },
-//   ];
+  const questions = [
+    {
+      type: "list",
+      name: "id",
+      message,
+      choices,
+    },
+  ];
 
-//   const { id } = await inquirer.prompt(questions);
-//   return id;
-// };
+  const { id } = await inquirer.prompt(questions);
+  return id;
+};
 
 
 // export const selectTasks = async (taskList: Task[]) => {
