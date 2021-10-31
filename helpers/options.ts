@@ -1,11 +1,11 @@
 // Models
-import DataBase from '../models/DataBase';
 import Searchs from '../models/Searchs';
+import SearchHistory from '../models/SearchHistory';
 // Helpers
 import { readInput, selectOption } from './inquirer';
 
-const db = new DataBase();
-const searchs = new Searchs( db );
+const searchHistory = new SearchHistory();
+const searchs = new Searchs();
 
 const options = (): { [id: string]: Function } => {
   return {
@@ -21,9 +21,7 @@ const options = (): { [id: string]: Function } => {
 
       const city = cities.find( city => city.id === cityId );
       // Save history
-      searchs.addHistory(city!.name);
-      // Save in db
-      db.writeDatabase(searchs.history);
+      searchHistory.addHistory(city!.name);
       // Weather
       const weather = await searchs.weather( city!.lat, city!.long );
       // Show Results
@@ -37,7 +35,7 @@ const options = (): { [id: string]: Function } => {
       console.log(`What's the weather like?: ${ weather.description }`);
     },
     "2": async () => {
-      searchs.history.forEach( ( search, id ) => {
+      searchHistory.history.forEach( ( search, id ) => {
         const idx = `${ id + 1 }.`.green;
         console.log(`${ idx } ${ search }`);
       })
